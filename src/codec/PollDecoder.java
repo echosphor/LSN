@@ -19,7 +19,6 @@ public class PollDecoder extends MessageIDDecoder {
 
 	@Override
 	protected MessageIDMessage createMessage() {
-		// TODO Auto-generated method stub
 		return new PollMessage();
 	}
 

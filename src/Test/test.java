@@ -12,7 +12,6 @@ import client.Client;
 public class test {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		ClientMessages clientMsgGetter = ClientMessages.getInstance();
 		clientMsgGetter.addClientMessage("LSN7F000001", "1", "1111");
 		clientMsgGetter.addClientMessage("LSN7F000001", "2", "2222");
@@ -22,13 +21,13 @@ public class test {
 
 			@Override
 			protected void dealConnected(String clientID) {
-				//TODO 连接入服务器的客户ID
+				//连接入服务器的客户ID
 				
 			}
 
 			@Override
 			protected void dealDisConnected(String clientID) {
-				//TODO 断开服务器的客户ID
+				//断开服务器的客户ID
 			}
 			
 		};
@@ -39,13 +38,13 @@ public class test {
 
 			@Override
 			protected void dealPushed(String topicName, byte[] payload) {
-				// TODO PUSH的消息内容
+				// PUSH的消息内容
 				
 			}
 
 			@Override
 			protected void dealPollResp(String topicName, byte[] payload) {
-				// TODO POLLRESP的消息内容
+				// POLLRESP的消息内容
 				
 			}
 			

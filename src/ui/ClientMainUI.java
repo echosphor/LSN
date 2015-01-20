@@ -59,7 +59,7 @@ public class ClientMainUI extends JFrame {
 	}
 
 	public void initClient(){
-		client = new Client("localhost",Constants.PORT,"test","testwd",true){//TODO PUSH/POLL方式的切换
+		client = new Client("localhost",Constants.PORT,"test","testwd",true){// PUSH/POLL方式的切换
 
 			@Override
 			protected void dealPushed(String topicName, byte[] payload) {

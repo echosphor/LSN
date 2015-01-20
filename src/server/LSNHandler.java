@@ -57,7 +57,7 @@ public class LSNHandler extends IoHandlerAdapter {
     public void sessionIdle(IoSession session, IdleStatus status) {
         if (status == IdleStatus.READER_IDLE) {
             session.close(false);
-            //TODO send a notification to messaging part to remove the bining clientID-ConnConfig
+            //send a notification to messaging part to remove the bining clientID-ConnConfig
         }
     }
 }

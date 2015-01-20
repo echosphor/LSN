@@ -187,7 +187,8 @@ public abstract class Client {
         ConnectMessage connMsg = new ConnectMessage();
         connMsg.setKeepAlive(KEEPALIVE_SECS);
         if (m_clientID == null) {
-            m_clientID = generateClientID();
+            //m_clientID = generateClientID();
+        	m_clientID = userName;
         }
         connMsg.setClientID(m_clientID);
         connMsg.setCleanSession(cleanSession);
@@ -397,7 +398,7 @@ public abstract class Client {
             }
 
             WriteFuture wf = m_session.write(msg);
-            //wf.addListener(IoFutureListener.CLOSE);短连接//TODO
+            //wf.addListener(IoFutureListener.CLOSE);短连接
             wf.await();
             LOG.info("message sent");
 

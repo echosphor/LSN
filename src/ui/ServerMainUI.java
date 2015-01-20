@@ -72,7 +72,7 @@ public class ServerMainUI extends JFrame{
 		clientlist.setAutoscrolls(true);
 		JScrollPane scrollableList = new JScrollPane(clientlist);
 		
-		//TODO 服务器刚启动  没有客户端连接
+		//服务器刚启动  没有客户端连接
 //		List<String> clientIDs = server.getAllClientID();
 //		System.out.println(clientIDs.toArray(new String[clientIDs.size()]));
 		

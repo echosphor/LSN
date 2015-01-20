@@ -108,7 +108,7 @@ public class HandleMessage{
         	server.dealConnect(message.getClientID());
     }
     
-    public void processPoll(IoSession session, Integer messageID){//TODO 需要实现从服务器获取用户消息
+    public void processPoll(IoSession session, Integer messageID){//TODO 需要实现从DB获取用户消息
     	String clientID = (String) session.getAttribute(Constants.ATTR_CLIENTID);
     	
     	Smessage msg = clientMsgGetter.getClientMessage(clientID);
@@ -124,7 +124,7 @@ public class HandleMessage{
         session.write(pollResp);
     }
     
-    public void processPushAck(IoSession session, Integer messageID){//TODO 需要分别处理不同的ack
+    public void processPushAck(IoSession session, Integer messageID){// 需要分别处理不同的ack
     	PushRunner pusher = pushers.get(messageID);
     	pusher.setReceivedPushAckMessageID(messageID);
     	pusher.getPushBarrier().countDown();

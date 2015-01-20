@@ -113,14 +113,12 @@ public class ConnectionBroker implements BuildConnection {
 			try {
 				connectionBroker.freeConnection(conn);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			try {
 				System.out.println("the number of connection is:"
 						+ connectionBroker.getNumberConnections());
 			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 		}

@@ -57,7 +57,6 @@ public class ConnectionFactory {
 		try {
 			conn = factory.getConnection();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Statement statement = null;
@@ -66,7 +65,6 @@ public class ConnectionFactory {
 		try {
 			statement = conn.createStatement();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(factory.getNumbersConnection());

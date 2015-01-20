@@ -46,7 +46,6 @@ public class Authenticator implements IAuthenticator {
 			if (factory != null)
 				factory.freeConnection(connection);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -99,7 +99,7 @@ class PushRunner extends Thread {
 
             //suspend until the server respond with POLLRESP
             LOG.info("PUSH waiting for PUSHACK");
-            unlocked = m_pushBarrier.await(PUSHACK_TIMEOUT, TimeUnit.MILLISECONDS); //TODO parametrize
+            unlocked = m_pushBarrier.await(PUSHACK_TIMEOUT, TimeUnit.MILLISECONDS); //线程等待响应
         }
         //if not arrive into certain limit, raise an error
         if (!unlocked) {
