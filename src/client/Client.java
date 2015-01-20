@@ -117,6 +117,9 @@ public abstract class Client {
         this(host, port,username,password,isPush);
         m_clientID = clientID;
     }
+    public Client(String host, int port, boolean isPush) {//用户登陆@2015.01.20
+        this(host, port,"DEFFAULT","DEFFAULT",isPush);
+    }
     
     protected void init() {
         DemuxingProtocolDecoder decoder = new DemuxingProtocolDecoder();
@@ -159,10 +162,10 @@ public abstract class Client {
         	updatePoller();
     }
     
-    public void connect() throws LSNException {
-        connect(false);
+    public boolean connect() throws LSNException {
+        return connect(false);
     }
-    public void connect(boolean cleanSession) throws LSNException {
+    public boolean connect(boolean cleanSession) throws LSNException {
         int retries = 0;
 
         try {
@@ -231,14 +234,17 @@ public abstract class Client {
                     break;
                 default:
                     errMsg = "Not idetified erro code " + m_returnCode;
+                return false;
             }
             throw new ConnectionException(errMsg);
+        }else{      	
+            if(isPush)
+            	updatePinger();
+            else
+            	updatePoller();           
+        	return true;
         }
 
-        if(isPush)
-        	updatePinger();
-        else
-        	updatePoller();
     }
     /**
      * In the current pinger is not ye executed, then cancel it and schedule
@@ -318,13 +324,15 @@ public abstract class Client {
 
     public void close() {
         //stop the pinger
-        m_pingerHandler.cancel(false);
+    	if(m_pingerHandler != null)
+    		m_pingerHandler.cancel(false);
 
         //send the CLOSE message
-        m_session.write(new DisconnectMessage());
-
         // wait until the summation is done
-        m_session.getCloseFuture().awaitUninterruptibly();
+    	if(m_session != null){
+    		m_session.write(new DisconnectMessage());
+    		m_session.getCloseFuture().awaitUninterruptibly();	
+    	}
     }
     
     

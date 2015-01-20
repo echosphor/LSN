@@ -22,7 +22,7 @@ import util.MessageIDGenerator;
 
 import commons.Constants;
 
-public class HandleMessage implements IAuthenticator{
+public class HandleMessage{
 	
 	private static HandleMessage INSTANCE;
 	
@@ -31,7 +31,7 @@ public class HandleMessage implements IAuthenticator{
 	
 	private Server server;
 	
-	private IAuthenticator m_authenticator = this;
+	private IAuthenticator m_authenticator = new Authenticator();
 	
     private MessageIDGenerator m_messageIDGenerator = new MessageIDGenerator();
     
@@ -138,14 +138,6 @@ public class HandleMessage implements IAuthenticator{
     	
     	session.close(true);
     }
-
-    //IAuthenticator interface
-	@Override
-	public boolean checkValid(String username, String password) {
-		if(username.equals(password))		
-			return true;
-		return false;
-	}
 	
 	public void push(String clientID){
 		push(clientID,false);
