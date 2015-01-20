@@ -187,8 +187,8 @@ public abstract class Client {
         ConnectMessage connMsg = new ConnectMessage();
         connMsg.setKeepAlive(KEEPALIVE_SECS);
         if (m_clientID == null) {
-            //m_clientID = generateClientID();
-        	m_clientID = userName;
+            m_clientID = generateClientID();//TODO DB用户ID问题
+        	//m_clientID = userName;
         }
         connMsg.setClientID(m_clientID);
         connMsg.setCleanSession(cleanSession);
