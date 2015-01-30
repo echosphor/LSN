@@ -57,9 +57,9 @@ public abstract class Client {
     final static int RETRIES_QOS_GT0 = 3;
     
 	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
-	 
-	private static final long CONNECT_TIMEOUT = 3 * 1000L; // 3秒
-	private static final long POLLRESP_TIMEOUT = 3 * 1000L;
+	//TODO server和client的健壮性
+	private static final long CONNECT_TIMEOUT = 20 * 1000L; // 20秒 连接超时
+	private static final long POLLRESP_TIMEOUT = 3 * 1000L; //TODO 间隔常量定义在单独文件  需要另外调整
 	private static final int KEEPALIVE_SECS = 3;
 	private static final int POLL_SECS = 5;//轮询间隔
 	private static final int NUM_SCHEDULER_TIMER_THREAD = 1;
@@ -92,7 +92,7 @@ public abstract class Client {
         public void run() {
             LOG.debug("Pingreq sent");
             //send a ping req
-            m_session.write(new PingReqMessage());
+            m_session.write(new PingReqMessage());//TODO 未发出心跳包  RPI-server
         }
     };
     
@@ -158,8 +158,9 @@ public abstract class Client {
             }
         });
         
-        if(!isPush)
-        	updatePoller();
+        //已改为点击connect 连接更新
+        //if(!isPush)
+        //	updatePoller();
     }
     
     public boolean connect() throws LSNException {
@@ -187,8 +188,8 @@ public abstract class Client {
         ConnectMessage connMsg = new ConnectMessage();
         connMsg.setKeepAlive(KEEPALIVE_SECS);
         if (m_clientID == null) {
-            m_clientID = generateClientID();//TODO DB用户ID问题
-        	//m_clientID = userName;
+            //m_clientID = generateClientID();//TODO DB用户ID问题
+        	m_clientID = userName;
         }
         connMsg.setClientID(m_clientID);
         connMsg.setCleanSession(cleanSession);

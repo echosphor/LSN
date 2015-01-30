@@ -41,7 +41,9 @@ public class ClientMainUI extends JFrame {
 	private JButton loginButton; //登录按钮
 	private JLabel usernameLabel;
 	private JLabel pwdLabel;
-	private JPanel jp1,jp2,jp3;
+	private JLabel hostlabel;
+	private JTextField hostaddress;
+	private JPanel jp1,jp2,jp3,jp4;
 
 	public ClientMainUI(){
 		setTitle("LSN client");
@@ -103,21 +105,27 @@ public class ClientMainUI extends JFrame {
 	}
 	
 	public void showLoginUI(){
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridLayout(4,1));
 	
 		jp1 = new JPanel();
 		jp2 = new JPanel();
 		jp3 = new JPanel();
+		jp4 = new JPanel();
 		
 		username = new JTextField(16);
 		usernameLabel = new JLabel("用户名");
 		password = new JPasswordField(16);
 		pwdLabel = new JLabel("密码");
+		hostlabel = new JLabel("主机地址");
+		hostaddress = new JTextField(16);
+		hostaddress.setText("localhost");
 		loginButton = new JButton("登录");
 		loginButton.addActionListener(new ActionListener(){ 
 			public void actionPerformed(ActionEvent evt){ 
 				String pwd = new String(password.getPassword()); //得到密码
 				String name = username.getText(); //得到密码
+				String host = hostaddress.getText();
+				client.setHostname(host);
 				client.setUserName(name);
 				client.setPassWord(pwd);
 				if(client.connect())
@@ -130,6 +138,9 @@ public class ClientMainUI extends JFrame {
 		jp2.add(pwdLabel);
 		jp2.add(password);
 		jp3.add(loginButton);
+		jp4.add(hostlabel);
+		jp4.add(hostaddress);
+		this.add(jp4);
 		this.add(jp1);
 		this.add(jp2);
 		this.add(jp3);

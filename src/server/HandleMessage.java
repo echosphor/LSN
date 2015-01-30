@@ -85,7 +85,7 @@ public class HandleMessage{
         //session属性用来标记客户ID 
         session.setAttribute(Constants.ATTR_CLIENTID, message.getClientID());
 
-        session.getConfig().setIdleTime(IdleStatus.READER_IDLE, Math.round(keepAlive * 1.5f));
+        session.getConfig().setIdleTime(IdleStatus.READER_IDLE, Math.round(keepAlive * 15f));// 要防止连接超时的时候session空闲
 
         //用户验证
         if (message.isUserFlag()) {
