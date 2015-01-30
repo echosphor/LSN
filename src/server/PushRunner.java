@@ -18,7 +18,7 @@ import exception.PushException;
 class PushRunner extends Thread {
 
     final static int RETRIES_QOS_GT0 = 3;
-	private static final long PUSHACK_TIMEOUT = 4 * 1000L;
+	private static final long PUSHACK_TIMEOUT = 10 * 1000L;//推送确认超时
 	
 	private static final Logger LOG = LoggerFactory.getLogger(PushRunner.class);
 	

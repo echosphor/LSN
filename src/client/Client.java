@@ -59,7 +59,7 @@ public abstract class Client {
 	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 	//TODO server和client的健壮性
 	private static final long CONNECT_TIMEOUT = 20 * 1000L; // 20秒 连接超时
-	private static final long POLLRESP_TIMEOUT = 3 * 1000L; //TODO 间隔常量定义在单独文件  需要另外调整
+	private static final long POLLRESP_TIMEOUT = 10 * 1000L; //TODO 间隔常量定义在单独文件  需要另外调整
 	private static final int KEEPALIVE_SECS = 3;
 	private static final int POLL_SECS = 5;//轮询间隔
 	private static final int NUM_SCHEDULER_TIMER_THREAD = 1;
