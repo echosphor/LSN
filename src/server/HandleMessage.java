@@ -42,7 +42,7 @@ public class HandleMessage{
 	Map<Integer,PushRunner> pushers;
 	
 	ClientMessages clientMsgGetter = ClientMessages.getInstance();
-	
+
     private HandleMessage() {
     	pushers = new HashMap<Integer,PushRunner>();
     }
@@ -138,6 +138,29 @@ public class HandleMessage{
     	
     	session.close(true);
     }
+    
+    /*
+     * push message to all online client that by given message.
+     * storage offline client message to db.
+     */
+    public void pushToAll(Smessage msg){
+    	//TODO 链表相减
+    	
+    }
+    
+    /*
+     * push message to all online client that get from clientMsgGetter
+     */
+	public void allPush(){
+		List<String> clientlist = getClientIDs();
+		for(String clientID:clientlist){
+			push(clientID);
+		}
+	}
+
+	public void push(String clientID,Smessage msg){
+		push(clientID,AbstractMessage.QOSType.MOST_ONE,false,msg);//retain need to realize
+	}
 	
 	public void push(String clientID){
 		push(clientID,false);
@@ -145,20 +168,22 @@ public class HandleMessage{
     public void push(String clientID, boolean retain){
     	push(clientID,AbstractMessage.QOSType.MOST_ONE,retain);
     }
-    public void push(String clientID, AbstractMessage.QOSType qos, boolean retain){//向多个client push 如何在ack中控制 DONE 
-    	//管理多个client的push过程
-    	ConnectionDescriptor conDescriptor = m_clientIDs.get(clientID);
-    	if(conDescriptor == null)
-    		return;
-    	if(conDescriptor.getSession() == null){//客户端意外断开连接
-    		m_clientIDs.remove(clientID);
-    	}
-    	
+    public void push(String clientID, AbstractMessage.QOSType qos, boolean retain){//向多个client push 如何在ack中控制 DONE     	
     	Smessage msg = clientMsgGetter.getClientMessage(clientID);
     	if(msg== null)
     	{
     		msg = new Smessage("哎呀","已经没有消息啦！");//没有信息了 
     	}	
+    	push(clientID,qos,retain,msg);//TODO 原msg的获取在gopush之前，获取session之后。需要注意
+    }
+    public void push(String clientID, AbstractMessage.QOSType qos, boolean retain,Smessage msg){//向多个client push 如何在ack中控制 DONE 
+    	//管理多个client的push过程
+    	ConnectionDescriptor conDescriptor = m_clientIDs.get(clientID);
+    	if(conDescriptor == null)
+    		return;
+    	if(conDescriptor.getSession() == null){//客户端意外断开连接 TODO 未做异常处理
+    		m_clientIDs.remove(clientID);
+    	}
     	PushRunner gopush;	
     	int msgID = m_messageIDGenerator.next();
     	gopush = new PushRunner(conDescriptor.getSession(), qos,retain,msgID);

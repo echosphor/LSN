@@ -9,6 +9,9 @@ public class Smessage {
 		this.setPayload(payload);
 	}
 
+	public Smessage() {
+	}
+
 	public String getTopic() {
 		return topic;
 	}

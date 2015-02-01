@@ -149,12 +149,7 @@ public class ServerMainUI extends JFrame{
 		initServer();
 	}
 	
-	public void initServer() throws IOException{
-//		ClientMessages clientMsgGetter = ClientMessages.getInstance();
-//		clientMsgGetter.addClientMessage("LSN7F000001", "1", "1111");
-//		clientMsgGetter.addClientMessage("LSN7F000001", "2", "2222");
-//		clientMsgGetter.addClientMessage("LSN7F000001", "3", "3333");
-		  
+	public void initServer() throws IOException{		  
 		server = new Server(){
 
 			@Override
