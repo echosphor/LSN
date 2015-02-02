@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.HashSet;
 import java.util.List;
 
 import messages.AbstractMessage;
@@ -21,6 +22,8 @@ import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import beans.Smessage;
 
 import commons.Constants;
 
@@ -114,10 +117,22 @@ public abstract class Server {
         LOG.info("Server stopped");
     }
     
-    public List<String> getAllClientID(){
-    	return handleMsg.getClientIDs();
+    public List<String> getOnlineClientIDs(){
+    	return handleMsg.getOnlineClientIDs();
     }
-   
+    
+    public HashSet<String> getAllClientIDs(){
+    	return handleMsg.getAllClientIDs();
+    }
+    
+    public void push2All(Smessage msg){
+    	handleMsg.push2All(msg);
+    }
+    
+    public void allPush(){
+    	handleMsg.allPush();
+    }
+    
 	public void push(String clientID){
 		handleMsg.push(clientID,false);
 	}

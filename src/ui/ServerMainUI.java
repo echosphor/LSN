@@ -47,6 +47,7 @@ public class ServerMainUI extends JFrame{
 	
 	private JList<String> clientlist;
 	private JButton pushBt;
+	private JButton push2AllBt;
 	private DefaultListModel<String> clientlistModel;
 	private DefaultListModel<String> msglistModel;
 	private JPanel msgMangePanel;
@@ -115,6 +116,15 @@ public class ServerMainUI extends JFrame{
 		
 		msgMangePanel.add(addMsgBt);
 		
+		push2AllBt = new JButton("push2all");
+		push2AllBt.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				server.push2All(new Smessage(inputTopic.getText(),inputPaylod.getText()));
+			}
+		});
+		
+		msgMangePanel.add(push2AllBt);
+		
 		msgPanel.add(msgMangePanel);
 		
 		mainpanel.add(msgPanel,"East");
@@ -128,6 +138,7 @@ public class ServerMainUI extends JFrame{
 				server.push(clientlist.getSelectedValue(),AbstractMessage.QOSType.LEAST_ONE,false);
 			}
 		});
+		
 		
 		clientlist.addMouseListener(new MouseAdapter() {//获取选中用户消息  并添加到列表
 			public void mouseClicked(MouseEvent e) {

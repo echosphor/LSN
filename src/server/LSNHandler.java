@@ -55,7 +55,7 @@ public class LSNHandler extends IoHandlerAdapter {
 
     @Override
     public void sessionIdle(IoSession session, IdleStatus status) {
-        if (status == IdleStatus.READER_IDLE) {
+        if (status == IdleStatus.READER_IDLE) {//心跳超时导致session关闭
             session.close(false);
             //send a notification to messaging part to remove the bining clientID-ConnConfig
         }

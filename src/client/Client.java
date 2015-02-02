@@ -92,7 +92,7 @@ public abstract class Client {
         public void run() {
             LOG.debug("Pingreq sent");
             //send a ping req
-            m_session.write(new PingReqMessage());//TODO 未发出心跳包  RPI-server
+            m_session.write(new PingReqMessage());// Q:未发出心跳包  RPI-server，A：连接时间过长造成idle状态，导致session自动关闭。
         }
     };
     

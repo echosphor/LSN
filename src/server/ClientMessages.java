@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import db.ConnectionFactory;
@@ -20,7 +21,7 @@ public class ClientMessages {
 	
 	private static ClientMessages INSTANCE;
 	
-	private ClientMessages(){	
+	private ClientMessages(){//TODO rename to XXXservice	
 	}
 	
 	public static ClientMessages getInstance(){
@@ -135,6 +136,28 @@ public class ClientMessages {
 				factory.freeConnection(connection);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public HashSet<String> getAllClientName(){//HashSet maybe faster than List when pick a name from it
+		HashSet<String> list = null;
+		try {
+			connection = factory.getConnection();
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select username from user ;");
+			list = new HashSet<String>();
+			while (rs.next()) {				
+				// user message exist 
+				String name = rs.getString(1);
+				list.add(name);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			this.close();
+			return list;
 		}
 	}
 }
